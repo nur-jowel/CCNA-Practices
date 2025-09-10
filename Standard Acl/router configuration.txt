@@ -1,0 +1,151 @@
+Dhaka Router
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname Dhaka
+
+Dhaka(config)#interface gig 0/0
+Dhaka(config-if)#ip address 192.168.1.1 255.255.255.0
+Dhaka(config-if)#no shutdown
+
+Dhaka(config-if)#interface gig 0/1
+Dhaka(config-if)#ip address 193.168.1.2 255.255.255.0
+Dhaka(config-if)#no shutdown
+
+Dhaka(config-if)#exit
+
+Dhaka(config)#router rip
+Dhaka(config-router)#network 192.168.1.0
+Dhaka(config-router)#network 193.168.1.0
+Dhaka(config-router)#exit
+Dhaka(config)#do wr
+	
+Dhaka(config)#access-list 20 deny 192.168.1.0 0.0.0.63
+Dhaka(config)#access-list 20 permit 192.168.1.64 0.0.0.63
+Dhaka(config)#access-list 20 deny 192.168.1.128 0.0.0.63
+Dhaka(config)#access-list 20 permit 192.168.1.192 0.0.0.63
+Dhaka(config)#interface gig 0/0
+Dhaka(config-if)#ip ac
+Dhaka(config-if)#ip access-group 20 in
+Dhaka(config-if)#exit
+Dhaka(config)#do wr
+
+Dhaka(config)#access-list 30 deny 200.168.1.0 0.0.0.255
+
+Dhaka(config)#interface gig 0/1
+Dhaka(config-if)#ip access-group 30 in
+Dhaka(config-if)#
+
+Router Khulna
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname Khulna
+
+Khulna(config)#interface gig 0/0
+Khulna(config-if)#ip address 194.168.1.1 255.255.255.0
+Khulna(config-if)#no shutdown
+
+Khulna(config-if)#interface se 0/1/1
+Khulna(config-if)#ip address 195.168.1.2 255.255.255.0
+Khulna(config-if)#no shutdown
+
+Khulna(config-if)#interface se 0/1/0
+Khulna(config-if)#ip address 201.168.1.2 255.255.255.0
+Khulna(config-if)#no shutdown
+
+Khulna(config-if)#interface gig  0/1
+Khulna(config-if)#ip address 193.168.1.1 255.255.255.0
+Khulna(config-if)#no shutdown
+
+Khulna(config-if)#exit
+
+Khulna(config)#router rip
+Khulna(config-router)#network 193.168.1.0
+Khulna(config-router)#network 194.168.1.0
+Khulna(config-router)#network 195.168.1.0
+Khulna(config-router)#network 201.168.1.0
+Khulna(config-router)#exit
+Khulna(config)#do wr
+
+Router Rajshahi
+
+Router>enable
+Router#configure terminal
+
+Rajshahi(config)#interface gig 0/0
+Rajshahi(config-if)#ip address 196.168.1.1 255.255.255.0
+Rajshahi(config-if)#no shutdown
+
+Rajshahi(config-if)#interface se 0/1/0
+Rajshahi(config-if)#ip address 197.168.1.2 255.255.255.0
+Rajshahi(config-if)#no shutdown
+
+Rajshahi(config-if)#interface se 0/1/1
+Rajshahi(config-if)#ip address 195.168.1.1 255.255.255.0
+Rajshahi(config-if)#no shutdown
+
+Rajshahi(config-if)#exit
+
+Rajshahi(config)#router rip
+Rajshahi(config-router)#network 196.168.1.0
+Rajshahi(config-router)#network 195.168.1.0
+Rajshahi(config-router)#network 197.168.1.0
+Rajshahi(config-router)#exit
+Rajshahi(config)#do wr
+
+
+Router Rangpur
+
+Router>enable
+Router#configure terminal
+
+Router(config)#hostname Rangpur
+Rangpur(config)#interface gig 0/0
+Rangpur(config-if)#ip address 198.168.1.1 255.255.255.0
+Rangpur(config-if)#no shutdown
+
+Rangpur(config-if)#interface se 0/1/0	
+Rangpur(config-if)#ip address 199.168.1.2 255.255.255.0
+Rangpur(config-if)#no shutdown
+
+Rangpur(config-if)#interface se 0/1/1
+Rangpur(config-if)#ip address 197.168.1.1 255.255.255.0
+Rangpur(config-if)#no shutdown
+
+Rangpur(config-if)#exit
+
+Rangpur(config)#router rip
+Rangpur(config-router)#network 197.168.1.0
+Rangpur(config-router)#network 198.168.1.0
+Rangpur(config-router)#network 199.168.1.0
+Rangpur(config-router)#exit
+Rangpur(config)#do wr
+
+Router Chattogram
+
+
+Router>enable
+Router#configure terminal
+
+Router(config)#hostname Chat
+Chat(config)#hostname Chattogram
+
+Chattogram(config)#interface gig 0/0
+Chattogram(config-if)#ip address 200.168.1.1 255.255.255.0
+Chattogram(config-if)#no shutdown
+
+Chattogram(config-if)#interface se 0/1/0
+Chattogram(config-if)#ip address 199.168.1.1 255.255.255.0
+Chattogram(config-if)#no shutdown
+
+Chattogram(config-if)#interface se 0/1/1
+Chattogram(config-if)#ip address 201.168.1.1 255.255.255.0
+Chattogram(config-if)#no shutdown
+
+Chattogram(config)#router rip
+Chattogram(config-router)#network 199.168.1.0
+Chattogram(config-router)#network 200.168.1.0
+Chattogram(config-router)#network 201.168.1.0
+Chattogram(config-router)#exit
+Chattogram(config)#do wr

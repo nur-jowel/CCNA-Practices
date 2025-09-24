@@ -1,0 +1,168 @@
+Router-A
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname Router-A
+
+Router-A(config)#interface gigabitethernet 0/0
+Router-A(config-if)#ip address 7.7.7.1 255.255.255.0
+Router-A(config-if)#no shutdown
+
+Router-A(config-if)#interface se 0/1/0
+Router-A(config-if)#ip address 18.18.18.1 255.255.255.0
+Router-A(config-if)#no shutdown
+
+Router-A(config-if)#interface se 0/1/1
+Router-A(config-if)#ip address 8.8.8.1 255.255.255.0
+Router-A(config-if)#no shutdown
+
+Router-A(config)#ip route 19.19.19.0 255.255.255.0 18.18.18.2
+Router-A(config)#ip route 16.16.16.0 255.255.255.0 18.18.18.2
+Router-A(config)#ip route 14.14.14.0 255.255.255.0 18.18.18.2
+Router-A(config)#ip route 13.13.13.0 255.255.255.0 18.18.18.2
+Router-A(config)#ip route 9.9.9.0 255.255.255.0 8.8.8.2
+Router-A(config)#ip route 11.11.11.0 255.255.255.0 18.18.18.2
+Router-A(config)#do wr
+
+
+Router-B
+
+
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname Router-B
+
+Router-B(config)#interface gigabitethernet 0/0
+Router-B(config-if)#ip address 16.16.16.1 255.255.255.0
+Router-B(config-if)#no shutdown
+
+Router-B(config-if)#interface se 0/1/0
+Router-B(config-if)#ip address 18.18.18.2 255.255.255.0
+Router-B(config-if)#no shutdown
+
+Router-B(config-if)#interface se 0/1/1
+Router-B(config-if)#ip address 15.15.15.1 255.255.255.0
+Router-B(config-if)#no shutdown
+
+Router-B(config-if)#interface gigabitethernet 0/1
+Router-B(config-if)#ip address 17.17.17.1 255.255.255.0
+Router-B(config-if)#no shutdown
+
+Router-B(config)#ip route 7.7.7.0 255.255.255.0 18.18.18.1
+Router-B(config)#ip route 19.19.19.0 255.255.255.0 17.17.17.2
+Router-B(config)#ip route 14.14.14.0 255.255.255.0 15.15.15.2
+Router-B(config)#ip route 13.13.13.0 255.255.255.0 15.15.15.2
+Router-B(config)#ip route 9.9.9.0 255.255.255.0 15.15.15.2
+Router-B(config)#ip route 11.11.11.0 255.255.255.0 15.15.15.2
+Router-B(config)#do wr
+Building configuration...
+
+
+
+Router-C
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname Router-C
+
+Router-C(config)#interface gigabitethernet 0/0
+Router-C(config-if)#ip address 13.13.13.1 255.255.255.0
+Router-C(config-if)#no shutdown
+
+Router-C(config-if)#interface se 0/1/1
+Router-C(config-if)#ip address 15.15.15.2 255.255.255.0
+Router-C(config-if)#no shutdown
+
+Router-C(config-if)#interface gigabitethernet 0/1
+Router-C(config-if)#ip address 20.20.20.1 255.255.255.0
+Router-C(config-if)#no shutdown
+
+Router-C(config-if)#interface se 0/1/0
+Router-C(config-if)#ip address 12.12.12.1 255.255.255.0
+Router-C(config-if)#no sh
+
+Router-C(config)#ip route 16.16.16.0 255.255.255.0 15.15.15.1
+Router-C(config)#ip route 19.19.19.0 255.255.255.0 15.15.15.1
+Router-C(config)#ip route 7.7.7.0 255.255.255.0 15.15.15.1
+Router-C(config)#ip route 9.9.9.0 255.255.255.0 12.12.12.2
+Router-C(config)#ip route 11.11.11.0 255.255.255.0 12.12.12.2
+Router-C(config)#ip route 14.14.14.0 255.255.255.0 20.20.20.2
+Router-C(config)#do write
+
+
+
+Router-D
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname Router-D
+
+Router-D(config)#interface gigabitethernet 0/0
+Router-D(config-if)#ip address 9.9.9.1 255.255.255.0
+Router-D(config-if)#no shutdown
+
+Router-D(config-if)#interface se 0/1/0
+Router-D(config-if)#ip address 12.12.12.2 255.255.255.0
+Router-D(config-if)#no shutdown
+
+Router-D(config-if)#interface se 0/1/1
+Router-D(config-if)#ip address 8.8.8.2 255.255.255.0
+Router-D(config-if)#no shutdown
+
+Router-D(config-if)#interface gigabitethernet 0/1
+Router-D(config-if)#ip address 10.10.10.1 255.255.255.0
+Router-D(config-if)#no shutdown
+
+Router-D(config)#ip route 13.13.13.0 255.255.255.0 12.12.12.1
+Router-D(config)#ip route 14.14.14.0 255.255.255.0 12.12.12.1
+Router-D(config)#ip route 16.16.16.0 255.255.255.0 12.12.12.1
+Router-D(config)#ip route 19.19.19.0 255.255.255.0 12.12.12.1
+Router-D(config)#ip route 7.7.7.0 255.255.255.0 8.8.8.1
+Router-D(config)#ip route 11.11.11.0 255.255.255.0 10.10.10.2
+Router-D(config)#do wr
+
+Router -E
+
+Router-E>enable
+Router-E#configure terminal
+Router-E(config)#interface gig 0/1
+Router-E(config-if)#ip address 10.10.10.2 255.255.255.0
+Router-E(config-if)#no shutdown
+
+Router-E(config)#ip route 0.0.0.0 0.0.0.0 10.10.10.1
+Router-E(config)#do write
+
+Router-F
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname Router-F
+
+Router-F(config)#interface gigabitethernet 0/0
+Router-F(config-if)#ip address 14.14.14.1 255.255.255.0
+Router-F(config-if)#no shutdown
+
+Router-F(config-if)#interface gigabitethernet 0/1
+Router-F(config-if)#ip address 20.20.20.2 255.255.255.0
+Router-F(config-if)#no shutdown
+
+Router-F(config)#ip route 0.0.0.0 0.0.0.0 20.20.20.1
+Router-F(config)#do wr
+
+Router-G
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname Router-G
+
+Router-G(config)#interface gigabitethernet 0/0
+Router-G(config-if)#ip address 19.19.19.1 255.255.255.0
+Router-G(config-if)#no shutdown
+
+Router-G(config-if)#interface gigabitethernet 0/1
+Router-G(config-if)#ip address 17.17.17.2 255.255.255.0
+Router-G(config-if)#no shutdown
+
+Router-G(config)#ip route 0.0.0.0 0.0.0.0 17.17.17.1
+Router-G(config)#do wr

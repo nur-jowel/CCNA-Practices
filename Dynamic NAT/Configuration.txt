@@ -1,0 +1,122 @@
+Router - 0
+
+Router>enable
+Router#config t
+
+Router(config)#interface gig 0/0
+Router(config-if)#ip address 201.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/0
+Router(config-if)#ip address 199.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#int se 0/1/1
+Router(config-if)#ip address 193.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config)#router rip
+Router(config-router)#network 201.168.1.0
+Router(config-router)#net 199.168.1.0
+Router(config-router)#net 193.168.1.0
+Router(config-router)#exit
+
+Router - 1
+
+Router>
+Router>enable
+Router#config t
+
+Router(config)#interface gig 0/0
+Router(config-if)#ip address 198.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/0
+Router(config-if)#ip address 199.168.1.2 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/1
+Router(config-if)#ip address 197.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config)#router rip
+Router(config-router)#net 198.168.1.0
+Router(config-router)#net 199.168.1.0
+Router(config-router)#net 197.168.1.0
+
+Router - 2
+
+Router>enable
+Router#config t
+
+Router(config)#interface gig 0/0
+Router(config-if)#ip address 196.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/1
+Router(config-if)#ip address 197.168.1.2 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/0
+Router(config-if)#ip address 195.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config)#router rip
+Router(config-router)#net 197.168.1.0
+Router(config-router)#net 196.168.1.0
+Router(config-router)#net 195.168.1.0
+
+Router - 3
+
+Router>enable
+Router#config t
+
+Router(config)#interface gig 0/0
+Router(config-if)#ip address 194.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/1
+Router(config-if)#ip address 193.168.1.2 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/0
+Router(config-if)#ip address 195.168.1.2 255.255.255.0
+Router(config-if)#no sh
+	
+Router(config-if)#interface gig 0/1
+Router(config-if)#ip address 200.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+
+Router(config)#router rip
+Router(config-router)#net 195.168.1.0
+Router(config-router)#net 193.168.1.0
+Router(config-router)#net 200.168.1.0
+
+
+Router - 4
+
+Router>
+Router>enable
+Router#config t
+
+Router(config)#interface gig 0/0
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface gig 0/1
+Router(config-if)#ip address 200.168.1.2 255.255.255.0
+Router(config-if)#no sh
+
+Router(config)#router rip
+Router(config-router)#net 200.168.1.0
+
+Router(config)#ip nat pool Dynamic 200.168.1.2 200.168.1.5 netmask 255.255.255.0
+Router(config)#access-list 10 permit any
+Router(config)#ip nat inside source list 10 pool Dynamic
+
+Router(config)#interface gig 0/0
+Router(config-if)#ip nat inside
+Router(config-if)#interface gig 0/1
+Router(config-if)#ip nat outside
+Router(config-if)#exit

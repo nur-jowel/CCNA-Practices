@@ -1,0 +1,116 @@
+For Router - 0
+
+Router>enable
+Router#configure terminal
+	
+Router(config)#interface gigabitethernet 0/0
+Router(config-if)#ip address 192.168.0.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/0
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/1
+Router(config-if)#ip address 192.168.7.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-router)#router eigrp 10
+Router(config-router)#network 192.168.0.0
+Router(config-router)#network 192.168.1.0
+Router(config-router)#network 192.168.7.0
+
+For Router -1
+
+
+Router>enable
+Router#configure terminal
+
+Router(config)#interface gigabitethernet 0/0
+Router(config-if)#ip address 192.168.2.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/0
+Router(config-if)#ip address 192.168.1.2 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/1
+Router(config-if)#ip address 192.168.3.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config)#router eigrp 10
+Router(config-router)#network 192.168.1.0
+Router(config-router)#network 192.168.2.0
+Router(config-router)#network 192.168.3.0
+
+
+For Router -2
+
+
+Router>enable
+Router#configure terminal
+
+Router(config)#interface gigabitethernet 0/0
+Router(config-if)#ip address 192.168.4.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/1
+Router(config-if)#ip address 192.168.3.2 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/0
+Router(config-if)#ip address 192.168.5.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config)#router eigrp 10
+Router(config-router)#network 192.168.4.0
+Router(config-router)#network 192.168.5.0
+Router(config-router)#network 192.168.3.0
+
+For Router - 3
+
+
+Router>enable
+Router#configure terminal
+
+Router(config)#interface gig 0/0
+Router(config-if)#ip address 192.168.6.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface gig 0/1
+Router(config-if)#ip address 192.168.8.1 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/0
+Router(config-if)#ip address 192.168.5.2 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface se 0/1/1
+Router(config-if)#ip address 192.168.7.2 255.255.255.0
+Router(config-if)#no sh
+
+
+Router(config)#router eigrp 10
+Router(config-router)#network 192.168.7.0
+Router(config-router)#network 192.168.8.0
+Router(config-router)#network 192.168.6.0
+
+
+For Router - 4
+
+
+Router>enable
+Router#configure terminal
+
+Router(config)#interface gig 0/1
+Router(config-if)#ip address 192.168.8.2 255.255.255.0
+Router(config-if)#no sh
+
+Router(config-if)#interface gig 0/0
+Router(config-if)#ip address 192.168.9.1 255.255.255.0
+Router(config-if)#no sh
+
+
+Router(config)#router eigrp 10
+Router(config-router)#network 192.168.9.0
+Router(config-router)#network 192.168.8.0

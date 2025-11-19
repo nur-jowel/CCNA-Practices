@@ -1,0 +1,145 @@
+Router 4 (RIP Routing)
+
+
+Router>enable
+Router#configure terminal
+
+Router(config)#hostname RIP
+RIP(config)#interface gig 0/0
+RIP(config-if)#ip address 10.0.0.1 255.0.0.0
+RIP(config-if)#no sh
+
+RIP(config-if)#interface se 0/0/1
+RIP(config-if)#ip address 51.0.0.1 255.0.0.0
+RIP(config-if)#no sh
+
+RIP(config-if)#ip dhcp pool RIP
+RIP(dhcp-config)#network 10.0.0.0 255.0.0.0
+RIP(dhcp-config)#default-router 10.0.0.1
+
+RIP(config)#router rip
+RIP(config-router)#network 10.0.0.0
+RIP(config-router)#network 51.0.0.0
+
+Router 2 (OSPF Routing)
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname OSPF
+
+OSPF(config)#interface gig 0/0
+OSPF(config-if)#ip address 172.168.0.1 255.255.0.0
+OSPF(config-if)#no sh
+
+OSPF(config-if)#interface se 0/1/0
+OSPF(config-if)#ip address 52.0.0.1 255.0.0.0
+OSPF(config-if)#no sh
+
+OSPF(config-if)#ip dhcp pool OSPF
+OSPF(dhcp-config)#network 172.168.0.0 255.255.0.0
+OSPF(dhcp-config)#default-router 172.168.0.1
+
+
+OSPF(config)#router ospf 1
+OSPF(config-router)#network 172.168.0.0 0.0.255.255 area 0
+OSPF(config-router)#no network 172.168.0.0 0.0.255.255 area 0
+OSPF(config-router)#network 172.168.0.0 0.0.255.255 area 10
+OSPF(config-router)#network 52.0.0.0 0.255.255.255 area 10
+
+
+Router 3 (EIGRP Routing)
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname EIGRP
+
+EIGRP(config)#interface gig 0/0
+EIGRP(config-if)#ip address 192.168.1.1 255.255.255.0
+EIGRP(config-if)#no sh
+
+EIGRP(config-if)#interface se 0/1/0
+EIGRP(config-if)#ip address 53.0.0.1 255.0.0.0
+EIGRP(config-if)#no sh
+
+EIGRP(config-if)#ip dhcp pool EIGRP
+EIGRP(dhcp-config)#network 192.168.1.0 255.255.255.0
+EIGRP(dhcp-config)#default-router 192.168.1.1
+
+EIGRP(config)#router eigrp 100
+EIGRP(config-router)#network 192.168.1.0
+EIGRP(config-router)#network 53.0.0.0
+
+Router 0 (BTCL Router)
+
+Router>enable
+Router#configure terminal
+BTC(config)#hostname BTCL
+
+BTCL(config)#interface  gig 0/0
+BTCL(config-if)#ip address 20.0.0.1 255.0.0.0
+BTCL(config-if)#no sh
+
+BTCL(config-if)#interface se 0/0/0
+BTCL(config-if)#ip address 50.0.0.1 255.0.0.0
+BTCL(config-if)#no sh
+
+BTCL(config-if)#ip dhcp pool BTCL
+BTCL(dhcp-config)#network 20.0.0.0 255.0.0.0
+BTCL(dhcp-config)#default-router 20.0.0.1
+
+BTCL(config)#ip route 0.0.0.0 0.0.0.0 50.0.0.2
+
+Router 1 (ISP Router)
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname ISP
+
+ISP(config)#interface se 0/0/0
+ISP(config-if)#ip address 50.0.0.2 255.0.0.0
+ISP(config-if)#no sh
+
+ISP(config-if)#interface se 0/0/1
+ISP(config-if)#ip address 51.0.0.2 255.0.0.0
+ISP(config-if)#no sh
+
+ISP(config-if)#interface se 0/1/1
+ISP(config-if)#ip address 52.0.0.2 255.0.0.0
+ISP(config-if)#no sh
+
+ISP(config-if)#interface se 0/1/0
+ISP(config-if)#ip address 53.0.0.2 255.0.0.0
+ISP(config-if)#no sh
+
+ISP(config)#router rip
+ISP(config-router)#network 51.0.0.0
+
+ISP(config)#router ospf 1
+ISP(config-router)#network 52.0.0.0 0.255.255.255 area 10
+
+ISP(config)#router eigrp 100
+ISP(config-router)#network 53.0.0.0
+
+ISP(config-router)#ip route 0.0.0.0 0.0.0.0 50.0.0.1
+
+
+ISP(config)#router rip
+ISP(config-router)#redistribute ospf 1 metric 5
+ISP(config-router)#redistribute eigrp 100 metric 5
+
+ISP(config-router)#router ospf 1
+ISP(config-router)#redistribute rip subnets
+ISP(config-router)#redistribute eigrp 100 subnets
+
+ISP(config-router)#router eigrp 100
+ISP(config-router)#redistribute rip metric 10000 100 250 10 1500
+ISP(config-router)#redistribute ospf 1 metric 10000 100 250 10 1500
+
+ISP(config)#router rip
+ISP(config-router)#default-information originate
+
+ISP(config-router)#router ospf 1
+ISP(config-router)#default-information originate 
+
+ISP(config-router)#router eigrp 100
+ISP(config-router)#redistribute static 

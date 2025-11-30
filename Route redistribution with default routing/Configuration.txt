@@ -1,0 +1,118 @@
+For Main Server Router
+
+Router>en
+Router#conf t
+
+Router(config)#hostname Main_server
+Main_server(config)#interface se 0/0/0
+Main_server(config-if)#ip address 192.168.10.2 255.255.255.0
+Main_server(config-if)#no sh
+	
+Main_server(config-if)#interface gig 0/1
+Main_server(config-if)#ip address 12.0.0.1 255.0.0.0
+Main_server(config-if)#no sh
+
+Main_server(config-if)#exit
+Main_server(config)#ip route 0.0.0.0 0.0.0.0 192.168.10.1
+
+
+For ISP Router 
+
+Router>enabl
+Router#config t
+
+Router(config)#hostname ISP
+ISP(config)#interface se 0/0/1
+ISP(config-if)#ip address 192.168.7.1 255.255.255.0
+ISP(config-if)#no sh
+
+ISP(config-if)#interface se 0/1/0
+ISP(config-if)#ip address 192.168.8.1 255.255.255.0
+ISP(config-if)#no sh
+
+ISP(config-if)#interface se 0/1/1
+ISP(config-if)#ip address 192.168.9.1 255.255.255.0
+ISP(config-if)#no sh
+
+ISP(config-if)#interface se 0/0/0
+ISP(config-if)#ip address 192.168.10.1 255.255.255.0
+ISP(config-if)#no sh
+
+ISP(config-if)#ip route 0.0.0.0 0.0.0.0 192.168.10.2
+ISP(config)#ip route 0.0.0.0 0.0.0.0 192.168.7.2
+ISP(config)#ip route 0.0.0.0 0.0.0.0 192.168.8.2
+ISP(config)#ip route 0.0.0.0 0.0.0.0 192.168.9.2
+
+
+For RIP Router 
+
+
+Router>en
+Router#configure terminal
+
+Router(config)#hostname RIP
+
+RIP(config)#interface gig 0/0
+RIP(config-if)#ip address 192.168.0.1 255.255.255.0
+RIP(config-if)#no sh
+
+RIP(config-if)#interface se 0/0/1
+RIP(config-if)#ip address 192.168.7.2 255.255.255.0
+RIP(config-if)#no sh
+
+RIP(config-if)#router rip
+RIP(config-router)#network 192.168.0.0
+RIP(config-router)#network 192.168.7.0
+
+RIP(config-router)#exit
+RIP(config)#ip route 0.0.0.0 0.0.0.0 192.168.7.1
+
+For EIGRP Routing
+
+Router>enable
+Router#configure terminal
+
+Router(config)#hostname EIGRp
+EIGRp(config)#hostname EIGRP
+EIGRP(config)#interface gig 0/0
+EIGRP(config-if)#ip address 192.168.1.1 255.255.255.0
+EIGRP(config-if)#no sh
+
+EIGRP(config-if)#interface gig 0/1
+EIGRP(config-if)#ip address 192.168.11.1 255.255.255.0
+EIGRP(config-if)#no sh
+
+EIGRP(config-if)#interface se 0/0/1
+EIGRP(config-if)#ip address 192.168.8.2 255.255.255.0
+EIGRP(config-if)#no sh
+
+EIGRP(config-if)#router eigrp 100
+EIGRP(config-router)#network 192.168.11.0
+EIGRP(config-router)#network 192.168.1.0
+EIGRP(config-router)#network 192.168.8.0
+
+EIGRP(config-router)#exit
+EIGRP(config)#ip route 0.0.0.0 0.0.0.0 192.168.8.1
+
+
+For OSPF Routing
+
+
+Router>enable
+Router#configure terminal
+
+Router(config)#hostname OSPF
+OSPF(config)#interface gig 0/0
+OSPF(config-if)#ip address 192.168.2.1 255.255.255.0
+OSPF(config-if)#no sh
+
+
+OSPF(config-if)#interface se 0/0/0
+OSPF(config-if)#ip address 192.168.9.2 255.255.255.0
+OSPF(config-if)#no sh
+
+OSPF(config-if)#route ospf 1
+OSPF(config-router)#network 192.168.2.0 0.0.0.255 area 10
+OSPF(config-router)#network 192.168.9.0 0.0.0.255 area 10
+OSPF(config-router)#exit
+OSPF(config)#ip route 0.0.0.0 0.0.0.0 192.168.9.1
